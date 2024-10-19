@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:voyage_flutter_app/pages/auth/login_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,16 +19,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      // routes: {
-           // '/': (context) => const WelcomePage(), //hadi katbda lwla par defauts
-      //   // '/login': (context) => const Login(),
-      //   // '/register': (context) => const Register(),
-      // },
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/': (context) => const MyHomePage(title: 'hooome pageee',), //hadi katbda lwla par defauts
+        '/login': (context) => const Login(),
+        // '/register': (context) => const Register(),
+      },
     );
   }
 }
 
+
+//to be removed
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -93,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: ()=>Navigator.pushNamed(context,"/login"),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
