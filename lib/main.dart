@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:voyage_flutter_app/pages/Home.dart';
 import 'package:voyage_flutter_app/pages/auth/login_page.dart';
+import 'package:voyage_flutter_app/pages/auth/register_page.dart';
 import 'package:voyage_flutter_app/pages/splash.dart';
 
 void main() {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) =>
             const MyHomePage(title: "Hello"), //hadi katbda lwla par defauts
         '/login': (context) => const Login(),
-        // '/register': (context) => const Register(),
+        '/register': (context) => const Register(),
       },
     );
   }

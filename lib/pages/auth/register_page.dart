@@ -4,34 +4,36 @@ void main() {
   
 }
 
-class Login extends StatelessWidget{
-  const Login({super.key});
+class Register extends StatelessWidget{
+  const Register({super.key});
 
   @override
   Widget build(BuildContext context) {
     
-    return const LoginPageContent();
+    return const RegisterPageContent();
   }
 }
 
-class LoginPageContent extends StatefulWidget{
-  const LoginPageContent({super.key});
+class RegisterPageContent extends StatefulWidget{
+  const RegisterPageContent({super.key});
 
   @override
-  State<LoginPageContent> createState() => LoginPageState();
+  State<RegisterPageContent> createState() => RegisterPageState();
 }
 
-class LoginPageState extends State<LoginPageContent> {
+class RegisterPageState extends State<RegisterPageContent> {
+  late TextEditingController _usernameTextEditingController;
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
 
   final _formKey = GlobalKey<FormState>();
 
-  bool hasPressedLogin = false;
+  bool hasPressedRegister = false;
 
   @override
   void initState() {
     super.initState();
+    _usernameTextEditingController = TextEditingController();
     _emailTextEditingController = TextEditingController();
     _passwordTextEditingController = TextEditingController();
   }
@@ -54,14 +56,14 @@ class LoginPageState extends State<LoginPageContent> {
                       fontWeight: FontWeight.bold// Font family for the input text
                     ),
                     cursorColor: const Color.fromARGB(255, 217, 111, 69),
-                    controller: _emailTextEditingController,
+                    controller: _usernameTextEditingController,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       filled: true,
 
                       fillColor: const Color.fromARGB(255, 255, 255, 255),
-                      labelText: 'Email',
+                      labelText: 'Username',
 
                       labelStyle: const TextStyle(
                           fontFamily: 'Raleway',
@@ -88,7 +90,65 @@ class LoginPageState extends State<LoginPageContent> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return 'Please enter your username';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextFormField(
+                    style: const TextStyle(
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.bold// Font family for the input text
+                    ),
+                    cursorColor: const Color.fromARGB(255, 217, 111, 69),
+                    controller: _emailTextEditingController,
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      filled: true,
+                      labelStyle:const TextStyle(
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w400// Your desired font family
+                        // Add other style properties as needed
+                      ),
+
+                      fillColor: const Color.fromARGB(255, 255, 255, 255),
+                      labelText: 'Email',
+                      floatingLabelStyle: const TextStyle(
+                        fontFamily: "Raleway",
+                      ),
+                      // hintText: 'email',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 217, 111, 69)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+
+                        borderSide: const BorderSide(width: 2, color: Color.fromARGB(255, 217, 111, 69)),
+                      ),
+                      suffixIcon: const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Icon(
+                          Icons.lock,
+                          color: Color.fromARGB(255, 217, 111, 69),
+                          size: 25,
+                        ),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an email address';
+                      }
+                       // Simple email regex pattern for validation
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value)) {
+                        return 'Please enter a valid email address';
                       }
                       return null;
                     },
@@ -151,21 +211,19 @@ class LoginPageState extends State<LoginPageContent> {
                   ),
                 ),
                 const SizedBox(height: 50),
-                hasPressedLogin==false?ElevatedButton(
+                hasPressedRegister==false?ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       if (mounted){
                         setState(() {
-                          hasPressedLogin=true;
+                          hasPressedRegister=true;
                         });
                       }
                       print("logging in..");
                     } else {
-                      if (mounted){
-                        setState(() {
-                          hasPressedLogin=false;
+                      setState(() {
+                          hasPressedRegister=false;
                         });
-                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -176,16 +234,10 @@ class LoginPageState extends State<LoginPageContent> {
                     ),
                   ),
                   child: const Text(
-                    'Login',
+                    'Register',
                     style: TextStyle(color: Colors.white, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
                   ),
                 ):const Center(child: CircularProgressIndicator(strokeWidth: 2,color: Color.fromARGB(255, 217, 111, 69),)),
-                hasPressedLogin==false?TextButton(onPressed: ()=>Navigator.pushNamed(context,"/register"),
-                 child:const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Text("Don't have an account? Create one!",style:TextStyle(color:Color.fromARGB(255, 217, 111, 69)))],
-                  )):const SizedBox.shrink(),
               ],
             ),
           ),
