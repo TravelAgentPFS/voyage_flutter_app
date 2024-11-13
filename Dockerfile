@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     xz-utils \
     git \
-    openjdk-11-jdk
+    openjdk-17-jdk
 
 # Install Flutter SDK
 RUN curl -fsSL https://storage.googleapis.com/download.flutter.io/flutter_linux_3.22.2-stable.tar.xz | tar -C /opt -xJf -
