@@ -1,0 +1,40 @@
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Step 4: Run Flutter tests
+      - name: Run tests
+        run: flutter test
+
+      # Step 5: Build the Flutter project (optional)
+      - name: Build APK (for Android)
+        run: flutter build apk
+
+      - name: Build iOS (for iOS)
+        if: runner.os == 'macOS'
+        run: flutter build ios --no-codesign
