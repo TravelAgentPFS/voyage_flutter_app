@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 class AuthService{
-  Future<http.Response> register(String email, String name, String password) async {
+  Future<http.Response?> register(String email, String name, String password) async {
     try {
       var regBody = {
         'email': email,
@@ -25,8 +25,10 @@ class AuthService{
       return response;
     } catch (e) {
       log('Error: $e');
-      rethrow; // Re-throwing the error to be handled in the calling function
+      rethrow;
+       // Re-throwing the error to be handled in the calling function
     }
+    // return null;
   }
 
   Future<http.Response?> login(String email, String password) async {
