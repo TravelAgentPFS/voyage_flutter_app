@@ -22,9 +22,6 @@ RUN git checkout 3.22.2
 # Set Flutter environment variables
 ENV PATH="/flutter/bin:$PATH"
 
-# Run flutter doctor to check the setup
-RUN flutter doctor
-
 # Set the default work directory to /var/jenkins_home
 WORKDIR /var/jenkins_home
 
