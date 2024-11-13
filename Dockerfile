@@ -18,11 +18,14 @@ RUN wget https://dl.google.com/android/repository/commandlinetools-linux-7583922
 ENV ANDROID_SDK_ROOT=/android-sdk-linux
 ENV PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
 
-# Accept licenses for Android SDK
+# Install the Android SDK and accept licenses
 RUN yes | sdkmanager --licenses
 
-# Install the required SDK packages
-RUN sdkmanager "platform-tools" "build-tools;30.0.3" "android-29" "platforms;android-29"
+# Update the SDK tools before installing packages
+RUN sdkmanager --update
+
+# Install required SDK packages
+RUN sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-29"
 
 # Clone and checkout Flutter 3.22.2
 RUN git clone https://github.com/flutter/flutter.git /flutter
