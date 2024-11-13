@@ -41,6 +41,8 @@ WORKDIR /workspace
 # Copy Flutter project into the container
 COPY . .
 
+ENV TAR_OPTIONS="--no-same-owner"
+
 # Get Flutter dependencies
 RUN flutter pub get
 
