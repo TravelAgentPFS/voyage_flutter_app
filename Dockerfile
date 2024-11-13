@@ -10,11 +10,17 @@ RUN apt-get update && apt-get install -y \
     git \
     openjdk-17-jdk
 
-# Install Flutter SDK version 3.22.2 directly from GitHub
-RUN curl -fsSL https://github.com/flutter/flutter/releases/download/3.22.2/flutter_linux_3.22.2-stable.tar.xz | tar -C /opt -xJf -
+# Clone the Flutter repository
+RUN git clone https://github.com/flutter/flutter.git /flutter
 
-# Add flutter to PATH
-RUN echo "export PATH=\$PATH:/opt/flutter/bin" >> /etc/profile.d/flutter.sh
+# Set the working directory to /flutter
+WORKDIR /flutter
+
+# Checkout the desired Flutter version (3.22.2)
+RUN git checkout 3.22.2
+
+# Add Flutter to PATH
+RUN echo "export PATH=\$PATH:/flutter/bin" >> /etc/profile.d/flutter.sh
 
 # Run flutter doctor to check everything is installed correctly
 RUN flutter doctor
