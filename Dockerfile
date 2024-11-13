@@ -22,8 +22,8 @@ RUN git checkout 3.22.2
 # Add Flutter to PATH
 RUN echo "export PATH=\$PATH:/flutter/bin" >> /etc/profile.d/flutter.sh
 
-# Run flutter doctor to check everything is installed correctly
-RUN flutter doctor
+# Run flutter doctor (source the flutter.sh first to ensure flutter is in the PATH)
+RUN source /etc/profile.d/flutter.sh && flutter doctor
 
 # Set the default work directory to /var/jenkins_home
 WORKDIR /var/jenkins_home
