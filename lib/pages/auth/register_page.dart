@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:voyage_flutter_app/services/auth_service.dart';
 
 void main() {
   
@@ -25,9 +28,9 @@ class RegisterPageState extends State<RegisterPageContent> {
   late TextEditingController _usernameTextEditingController;
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
-
   final _formKey = GlobalKey<FormState>();
 
+  AuthService authService = AuthService();
   bool hasPressedRegister = false;
 
   @override
@@ -38,6 +41,56 @@ class RegisterPageState extends State<RegisterPageContent> {
     _passwordTextEditingController = TextEditingController();
   }
   
+  void registerUser() async {
+    String username= _usernameTextEditingController.text;
+    String email= _emailTextEditingController.text;
+    String password= _passwordTextEditingController.text;
+    
+    try{
+      final response = await authService.register(email,username,password);
+      if (response != null) {
+        if (response.statusCode == 200 && mounted) {
+          // Navigator.pushReplacementNamed(context, '/Home');
+          var responseBody = jsonDecode(response.body);
+          print(responseBody);
+        } else if (response.statusCode == 400) {
+          var responseBody = jsonDecode(response.body);
+          
+          print(responseBody);
+          // String errorMessage = responseBody['message'];
+          // print('Error message: $errorMessage');
+
+          // if(mounted){
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text(errorMessage)),
+          //   );}
+        } else {
+          // Handle unexpected status codes
+          if(mounted){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Unexpected status code: ${response.statusCode}')),
+          );}
+        }
+      } else {
+        // Handle null response
+        if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No response received. Please check your internet connection.')),
+        );}
+      }
+      if (mounted){
+        setState(() {
+          hasPressedRegister=false;
+        });}
+    } catch (e) {
+      print('Error in registerUser: $e');
+      if(mounted){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An unexpected error occurred: $e')),
+      );}
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(
@@ -106,7 +159,7 @@ class RegisterPageState extends State<RegisterPageContent> {
                     ),
                     cursorColor: const Color.fromARGB(255, 217, 111, 69),
                     controller: _emailTextEditingController,
-                    obscureText: true,
+                    obscureText: false,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -135,7 +188,7 @@ class RegisterPageState extends State<RegisterPageContent> {
                       suffixIcon: const Padding(
                         padding: EdgeInsets.all(8),
                         child: Icon(
-                          Icons.lock,
+                          Icons.mail_outline,
                           color: Color.fromARGB(255, 217, 111, 69),
                           size: 25,
                         ),
@@ -219,7 +272,7 @@ class RegisterPageState extends State<RegisterPageContent> {
                           hasPressedRegister=true;
                         });
                       }
-                      print("logging in..");
+                      registerUser();
                     } else {
                       setState(() {
                           hasPressedRegister=false;

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:voyage_flutter_app/services/auth_service.dart';
 
 void main() {
   
@@ -27,6 +30,7 @@ class LoginPageState extends State<LoginPageContent> {
 
   final _formKey = GlobalKey<FormState>();
 
+  AuthService authService = AuthService();
   bool hasPressedLogin = false;
 
   @override
@@ -36,6 +40,55 @@ class LoginPageState extends State<LoginPageContent> {
     _passwordTextEditingController = TextEditingController();
   }
   
+void loginUser() async {
+    String email= _emailTextEditingController.text;
+    String password= _passwordTextEditingController.text;
+    
+    try{
+      final response = await authService.login(email,password);
+      if (response != null) {
+        if (response.statusCode == 200 && mounted) {
+          // Navigator.pushReplacementNamed(context, '/Home');
+          var responseBody = jsonDecode(response.body);
+          print(responseBody);
+        } else if (response.statusCode == 400) {
+          var responseBody = jsonDecode(response.body);
+          
+          print(responseBody);
+          // String errorMessage = responseBody['message'];
+          // print('Error message: $errorMessage');
+
+          // if(mounted){
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text(errorMessage)),
+          //   );}
+        } else {
+          // Handle unexpected status codes
+          if(mounted){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Unexpected status code: ${response.statusCode}')),
+          );}
+        }
+      } else {
+        // Handle null response
+        if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No response received. Please check your internet connection.')),
+        );}
+      }
+      if (mounted){
+        setState(() {
+          hasPressedLogin=false;
+        });}
+    } catch (e) {
+      print('Error in loginUser: $e');
+      if(mounted){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An unexpected error occurred: $e')),
+      );}
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(
@@ -159,6 +212,7 @@ class LoginPageState extends State<LoginPageContent> {
                           hasPressedLogin=true;
                         });
                       }
+                      loginUser();
                       print("logging in..");
                     } else {
                       if (mounted){
