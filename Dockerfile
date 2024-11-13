@@ -19,11 +19,11 @@ WORKDIR /flutter
 # Checkout the desired Flutter version (3.22.2)
 RUN git checkout 3.22.2
 
-# Add Flutter to PATH
-RUN echo "export PATH=\$PATH:/flutter/bin" >> /etc/profile.d/flutter.sh
+# Set Flutter environment variables
+ENV PATH="/flutter/bin:$PATH"
 
-# Run flutter doctor (source the flutter.sh first to ensure flutter is in the PATH)
-RUN . /etc/profile.d/flutter.sh && flutter doctor
+# Run flutter doctor to check the setup
+RUN flutter doctor
 
 # Set the default work directory to /var/jenkins_home
 WORKDIR /var/jenkins_home
