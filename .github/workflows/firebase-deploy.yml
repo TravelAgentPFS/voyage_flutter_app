@@ -32,4 +32,4 @@ jobs:
 
     - name: Upload APK to Firebase App Distribution
       run: |
-        firebase appdistribution:distribute app-release.apk --app your-firebase-app-id --groups "testers" --release-notes "Automated deploy from GitHub Actions"
+        firebase appdistribution:distribute app-release.apk --app ${{secrets.FIREBASE_APP_ID}} --groups "testers" --release-notes "Automated deploy from GitHub Actions"
