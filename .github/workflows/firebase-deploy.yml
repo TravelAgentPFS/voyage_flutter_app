@@ -23,6 +23,7 @@ jobs:
     - name: Authenticate Firebase CLI
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
+        appId: ${{secrets.FIREBASE_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         
     - name: Download APK from GitHub Releases
