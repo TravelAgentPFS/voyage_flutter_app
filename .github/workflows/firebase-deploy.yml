@@ -13,17 +13,27 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Download APK from GitHub Releases
+    - name: Download the latest APK from GitHub Releases
       id: download_apk
-      uses: softprops/action-gh-release@v1
-      with:
-        files: 'app-release.apk'  # This is the name of the file you're downloading from the releases
+      run: |
+        # GitHub API to get the latest release
+        release_url="https://api.github.com/repos/${{ github.repository }}/releases/latest"
+        apk_url=$(curl -s $release_url | jq -r '.assets[] | select(.name=="app-release.apk") | .browser_download_url')
+
+        # Check if APK URL is found
+        if [ -z "$apk_url" ]; then
+          echo "APK not found in the latest release."
+          exit 1
+        fi
+
+        # Download the APK
+        curl -L $apk_url -o app-release.apk
 
     - name: Upload APK to Firebase
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
         appId: ${{ secrets.FIREBASE_APP_ID }}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-        file: ${{ steps.download_apk.outputs.assets }}  # Path to the downloaded APK
+        file: app-release.apk  # Path to the downloaded APK
         groups: testers  # Add your test groups
         releaseNotes: "Automated deploy from GitHub Actions"
