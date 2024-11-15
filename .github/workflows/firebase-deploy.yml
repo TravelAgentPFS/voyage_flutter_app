@@ -25,6 +25,7 @@ jobs:
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+        file: app-release.apk
         
     - name: Download APK from GitHub Releases
       id: download_apk
