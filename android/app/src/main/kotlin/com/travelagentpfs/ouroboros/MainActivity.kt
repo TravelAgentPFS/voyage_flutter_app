@@ -1,4 +1,4 @@
-package com.example.voyage_flutter_app
+package com.travelagentpfs.ouroboros
 
 import io.flutter.embedding.android.FlutterActivity
 
