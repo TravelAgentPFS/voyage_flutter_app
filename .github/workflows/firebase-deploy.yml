@@ -1,4 +1,4 @@
-name: Firebase Deploy
+name: Deploy to Firebase
 
 on:
   push:
@@ -8,31 +8,22 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '22'  # Adjust the version if necessary
-
-    - name: Install Firebase CLI
-      run: npm install -g firebase-tools
-
-    - name: Authenticate Firebase CLI
-      uses: wzieba/Firebase-Distribution-Github-Action@v1
-      with:
-        appId: ${{secrets.FIREBASE_APP_ID}}
-        serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-        file: app/build/outputs/apk/release/app-release.apk
-        
     - name: Download APK from GitHub Releases
       id: download_apk
       uses: softprops/action-gh-release@v1
       with:
-        files: 'app-release.apk'  # Specify the APK filename here
+        files: 'app-release.apk'  # This is the name of the file you're downloading from the releases
 
-    - name: Upload APK to Firebase App Distribution
-      run: |
-        firebase appdistribution:distribute app-release.apk --app ${{secrets.FIREBASE_APP_ID}} --groups "testers" --release-notes "Automated deploy from GitHub Actions"
+    - name: Upload APK to Firebase
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: ${{ secrets.FIREBASE_APP_ID }}
+        serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+        file: ${{ steps.download_apk.outputs.assets }}  # Path to the downloaded APK
+        groups: testers  # Add your test groups
+        releaseNotes: "Automated deploy from GitHub Actions"
