@@ -1,5 +1,6 @@
 //to be removed
 import 'package:flutter/material.dart';
+import 'package:voyage_flutter_app/widgets/ActivitiesTabBar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -104,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     )),
               ),
             ),
+            ActivitiesTabBar(),
           ],
         ),
       ),
