@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:voyage_flutter_app/services/auth_service.dart';
@@ -50,11 +51,11 @@ void loginUser() async {
         if (response.statusCode == 200 && mounted) {
           // Navigator.pushReplacementNamed(context, '/Home');
           var responseBody = jsonDecode(response.body);
-          print(responseBody);
+          log(responseBody);
         } else if (response.statusCode == 400) {
           var responseBody = jsonDecode(response.body);
           
-          print(responseBody);
+          log(responseBody);
           // String errorMessage = responseBody['message'];
           // print('Error message: $errorMessage');
 
@@ -81,7 +82,7 @@ void loginUser() async {
           hasPressedLogin=false;
         });}
     } catch (e) {
-      print('Error in loginUser: $e');
+      log('Error in loginUser: $e');
       if(mounted){
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('An unexpected error occurred: $e')),
@@ -213,7 +214,7 @@ void loginUser() async {
                         });
                       }
                       loginUser();
-                      print("logging in..");
+                      log("logging in..");
                     } else {
                       if (mounted){
                         setState(() {

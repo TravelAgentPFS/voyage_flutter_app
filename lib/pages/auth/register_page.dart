@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:voyage_flutter_app/services/auth_service.dart';
@@ -52,11 +53,11 @@ class RegisterPageState extends State<RegisterPageContent> {
         if (response.statusCode == 200 && mounted) {
           // Navigator.pushReplacementNamed(context, '/Home');
           var responseBody = jsonDecode(response.body);
-          print(responseBody);
+          log(responseBody);
         } else if (response.statusCode == 400) {
           var responseBody = jsonDecode(response.body);
           
-          print(responseBody);
+          log(responseBody);
           // String errorMessage = responseBody['message'];
           // print('Error message: $errorMessage');
 
@@ -83,7 +84,7 @@ class RegisterPageState extends State<RegisterPageContent> {
           hasPressedRegister=false;
         });}
     } catch (e) {
-      print('Error in registerUser: $e');
+      log('Error in registerUser: $e');
       if(mounted){
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('An unexpected error occurred: $e')),

@@ -1,6 +1,5 @@
-//to be removed
 import 'package:flutter/material.dart';
-import 'package:voyage_flutter_app/widgets/ActivitiesTabBar.dart';
+import 'package:voyage_flutter_app/widgets/activities_tab_bar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -14,12 +13,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 244, 244, 244),
+      backgroundColor: const Color.fromARGB(255, 244, 244, 244),
       body: SafeArea(
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               height: size.width * 0.2,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -58,14 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const Icon(
                     Icons.account_circle,
-                    color: Color.fromARGB(255, 217, 217, 217),
+                    color: Color.fromARGB(205, 116, 162, 165),//Color.fromARGB(255, 217, 217, 217),
                     size: 40,
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: size.height * 0.05,
+            const SizedBox(
+              height: 10//size.height * 0.05,
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -105,12 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     )),
               ),
             ),
-            ActivitiesTabBar(),
+            const ActivitiesTabBar(),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 238, 144, 3),
+        backgroundColor: const Color.fromARGB(255, 238, 144, 3),
         onPressed: () => Navigator.pushNamed(context, "/login"),
         tooltip: 'Increment',
         child: const Icon(Icons.search, color: Colors.white),

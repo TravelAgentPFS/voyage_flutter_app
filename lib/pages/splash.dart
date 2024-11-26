@@ -6,7 +6,7 @@ class Splash extends StatefulWidget {
   const Splash({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<Splash> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<Splash> with WidgetsBindingObserver {
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<Splash> with WidgetsBindingObserver {
         backgroundColor: Colors.white,
         duration: 1000,
         splashTransition: SplashTransition.fadeTransition,
-        nextScreen: MyHomePage(
+        nextScreen: const MyHomePage(
           title: "HELLO",
         ),
       ),

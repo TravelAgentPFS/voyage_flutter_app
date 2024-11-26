@@ -32,7 +32,7 @@ class AuthService{
   }
 
   Future<http.Response?> login(String email, String password) async {
-    print("ACCESSING LOGIN");
+    log("ACCESSING LOGIN");
     try {
       var regBody = {
         "username": email,
@@ -48,7 +48,7 @@ class AuthService{
       if (response.statusCode == 200) {
         var responseBody = jsonDecode(response.body);
         // String token = respoody['data']['client'];
-        print(responseBody);
+        log(responseBody);
         // await storage.write(key: 'auth_token', value: token);
         // // print(user['marchandData']);
         // await storage.write(
@@ -69,14 +69,14 @@ class AuthService{
         return response;
       } else if (response.statusCode == 400) {
         var responseBody = jsonDecode(response.body);
-        print('Error ${responseBody["statusCode"]} : ${responseBody['message']}');
+        log('Error ${responseBody["statusCode"]} : ${responseBody['message']}');
         return response;
       } else {
-        print('Unexpected status code: ${response.statusCode}');
+        log('Unexpected status code: ${response.statusCode}');
         return response;
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
     }
     return null;
   }
