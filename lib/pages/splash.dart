@@ -1,6 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:voyage_flutter_app/pages/Home.dart';
+// import 'package:voyage_flutter_app/pages/Home.dart';
+
+import 'auth/login_page.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -25,7 +27,7 @@ class _SplashScreenState extends State<Splash> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 
@@ -42,9 +44,7 @@ class _SplashScreenState extends State<Splash> with WidgetsBindingObserver {
         backgroundColor: Colors.white,
         duration: 1000,
         splashTransition: SplashTransition.fadeTransition,
-        nextScreen: const MyHomePage(
-          title: "HELLO",
-        ),
+        nextScreen: const Login()
       ),
     );
   }

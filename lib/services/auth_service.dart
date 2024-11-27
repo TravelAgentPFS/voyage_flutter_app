@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:voyage_flutter_app/config/url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,6 +6,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 class AuthService{
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
   Future<http.Response?> register(String email, String name, String password) async {
     try {
       var regBody = {
@@ -47,12 +49,12 @@ class AuthService{
 
       if (response.statusCode == 200) {
         var responseBody = jsonDecode(response.body);
-        // String token = respoody['data']['client'];
-        log(responseBody);
-        // await storage.write(key: 'auth_token', value: token);
-        // // print(user['marchandData']);
-        // await storage.write(
-        //     key: 'user_marchandData', value: jsonEncode(user['marchandData']));
+        String token = response.headers["authorization"].toString().split(' ')[1];
+        // log(responseBody);
+        log(token);
+        await storage.write(key: 'auth_token', value: token);
+        await storage.write(key: 'image', value: responseBody['image']);
+        await storage.write(key: 'name', value: responseBody['name']);
         // await storage.write(
         //     key: 'user_isMarchand', value: user['isMarchand'].toString());
         // await storage.write(

@@ -1,4 +1,10 @@
+// ignore_for_file: file_names
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:voyage_flutter_app/widgets/activities_tab_bar.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -9,6 +15,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  String? base64ProfileImg;
+  FlutterSecureStorage storage = const FlutterSecureStorage();
+  String username="";
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  // Load the profile image from secure storage
+  Future<void> _loadData() async {
+    String? storedBase64Img = await storage.read(key: 'image');
+    if (storedBase64Img != null && _isValidBase64Image(storedBase64Img)) {
+      setState(() {
+        base64ProfileImg = storedBase64Img;
+      });
+    }
+    String? storedUsername = await storage.read(key: "name");
+    setState(() {
+      username = storedUsername ?? "";
+    });
+  }
+
+  // Validate the base64 string for an image
+  bool _isValidBase64Image(String base64Str) {
+    try {
+      final decodedBytes = base64.decode(base64Str);
+      // Check if the size is reasonable (e.g., less than 5MB)
+      if (decodedBytes.length > 1024 * 1024 * 5) {
+        return false; // Image is too large
+      }
+      // Optionally check if it decodes into a valid image format
+      return true;
+    } catch (e) {
+      return false; // Invalid base64 string
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -23,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Flexible(
+                  Flexible(
                     // fit: FlexFit.tight,
                     child: FittedBox(
                       // fit: BoxFit.scaleDown,
@@ -31,15 +76,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hello, mamoma",
-                            style: TextStyle(
+                            "Hello, $username",
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: 22,
                               fontFamily: 'Raleway',
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
+                          const Text(
                             "Welcome to travel agent",
                             style: TextStyle(
                               color: Color.fromARGB(255, 137, 137, 137),
@@ -55,11 +100,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     width: size.width * 0.05,
                   ),
-                  const Icon(
-                    Icons.account_circle,
-                    color: Color.fromARGB(205, 116, 162, 165),//Color.fromARGB(255, 217, 217, 217),
-                    size: 40,
-                  ),
+                  base64ProfileImg != null
+                      ? ClipOval(
+                          child: Image.memory(
+                            base64Decode(base64ProfileImg!),
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : const Icon(
+                          Icons.account_circle,
+                          color: Color.fromARGB(205, 116, 162, 165),
+                          size: 40,
+                        ),
                 ],
               ),
             ),
@@ -93,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 40,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 0, 0, 0),
+                          color: Color.fromARGB(255, 0,0,0),
                         ),
                         child: const Icon(
                           Icons.tune_rounded,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:voyage_flutter_app/widgets/clip_rounded_image.dart';
 
 class HotelDetailsPage extends StatelessWidget {
+  const HotelDetailsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -58,21 +60,21 @@ class HotelDetailsPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Laskar Cinta Hotel',
                             style: TextStyle(
                               fontSize: 24.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_pin,
-                                color: const Color.fromARGB(255, 188, 23, 11),
+                                color: Color.fromARGB(255, 188, 23, 11),
                               ),
                               Text(
                                 'Noth Sragerntina, Austria',
@@ -83,7 +85,7 @@ class HotelDetailsPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -96,7 +98,7 @@ class HotelDetailsPage extends StatelessWidget {
                                       children: [
                                         TextSpan(
                                           text: '4.8',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: "Montserrat",
@@ -106,7 +108,7 @@ class HotelDetailsPage extends StatelessWidget {
                                         ),
                                         TextSpan(
                                           text: ' ( 102 reviews ) ',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.normal,
                                               fontFamily: "Montserrat",
@@ -177,7 +179,7 @@ class HotelDetailsPage extends StatelessWidget {
                                   size: 24.0, color: Colors.blue),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Align(

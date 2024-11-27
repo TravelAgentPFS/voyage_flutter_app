@@ -121,7 +121,7 @@ class _ActivitiesTabBar extends State<ActivitiesTabBar>
           attractionImage:
               attractionImages != null && attractionImages.length > index
                   ? attractionImages[index]
-                  : "null", // Pass image if available
+                  : "", // Pass image if available
         );
       },
     );
