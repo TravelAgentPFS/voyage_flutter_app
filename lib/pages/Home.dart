@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color.fromARGB(255, 238, 144, 3),
         onPressed: () => Navigator.pushNamed(context, "/login"),
         tooltip: 'Increment',
-        child: const Icon(Icons.search, color: Colors.white),
+        child: const Icon(Icons.chat, color: Colors.white),
       ),
     );
   }
