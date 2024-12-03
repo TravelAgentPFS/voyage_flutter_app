@@ -15,10 +15,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   String? base64ProfileImg;
   FlutterSecureStorage storage = const FlutterSecureStorage();
-  String username="";
+  String username = "";
   @override
   void initState() {
     super.initState();
@@ -117,9 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10//size.height * 0.05,
-            ),
+            const SizedBox(height: 10 //size.height * 0.05,
+                ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -147,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 40,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 0,0,0),
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
                         child: const Icon(
                           Icons.tune_rounded,
