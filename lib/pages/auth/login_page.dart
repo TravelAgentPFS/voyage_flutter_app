@@ -49,13 +49,13 @@ void loginUser() async {
       final response = await authService.login(email,password);
       if (response != null) {
         if (response.statusCode == 200 && mounted) {
-          // Navigator.pushReplacementNamed(context, '/Home');
-          var responseBody = jsonDecode(response.body);
-          log(responseBody);
+          Navigator.pushReplacementNamed(context, '/home');
+          // var responseBody = jsonDecode(response.body);
+          // log(responseBody.toString());
         } else if (response.statusCode == 400) {
           var responseBody = jsonDecode(response.body);
           
-          log(responseBody);
+          log(responseBody.toString());
           // String errorMessage = responseBody['message'];
           // print('Error message: $errorMessage');
 
@@ -197,7 +197,7 @@ void loginUser() async {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a password';
                       }
-                      if (value.length < 8) {
+                      if (value.length < 5) {
                         return 'Password should be at least 8 characters';
                       }
                       return null;
@@ -241,6 +241,13 @@ void loginUser() async {
                   children: [
                   Text("Don't have an account? Create one!",style:TextStyle(color:Color.fromARGB(255, 217, 111, 69)))],
                   )):const SizedBox.shrink(),
+              
+              ///DEBUGGING
+              ///
+              TextButton(onPressed: ()=>Navigator.pushNamed(context,"/home"),child: const Text("[DEBUG]: go to /home"),)
+              ///
+              ///DEBUGGING
+              
               ],
             ),
           ),

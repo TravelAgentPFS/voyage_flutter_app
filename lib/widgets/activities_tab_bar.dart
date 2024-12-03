@@ -61,9 +61,9 @@ class _ActivitiesTabBar extends State<ActivitiesTabBar>
                   ],
                 ),
                 _buildCardHotelList(count: 3, imageUrls: [
-                  "https://balidave.com/wp-content/uploads/2022/11/best-hotel-bali.jpeg",
-                  "https://balidave.com/wp-content/uploads/2022/11/best-hotels-bali-melia-nusa-dua.jpeg",
-                  "https://balidave.com/wp-content/uploads/2022/11/best-hotels-bali-four-seasons-ubud.jpeg",
+                  "assets/images/best-hotel-bali.jpeg",
+                  "assets/images/best-hotels-bali-melia-nusa-dua.jpeg",
+                  "assets/images/best-hotels-bali-four-seasons-ubud.jpeg",
                 ], locations: [
                   "Ubud, Bali, Indonesia",
                   "Nepal",
@@ -121,7 +121,7 @@ class _ActivitiesTabBar extends State<ActivitiesTabBar>
           attractionImage:
               attractionImages != null && attractionImages.length > index
                   ? attractionImages[index]
-                  : "null", // Pass image if available
+                  : "", // Pass image if available
         );
       },
     );

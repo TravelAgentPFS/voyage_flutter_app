@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voyage_flutter_app/pages/hotel/HotelDetails.dart';
+import 'package:voyage_flutter_app/pages/hotel/hotel_details.dart';
 
 import 'clip_rounded_image.dart';
 
@@ -50,7 +50,7 @@ class _BuildCardHotelState extends State<BuildCardHotel> {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
-                    builder: (context) => HotelDetailsPage(),
+                    builder: (context) => const HotelDetailsPage(),
                   );
                 },
                 child: ClipRoundedImage(
