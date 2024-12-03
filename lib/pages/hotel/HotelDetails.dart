@@ -58,7 +58,7 @@ class HotelDetailsPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Laskar Cinta Hotel',
                             style: TextStyle(
                               fontSize: 24.0,
