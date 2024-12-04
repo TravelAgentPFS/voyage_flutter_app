@@ -285,11 +285,11 @@ class _MyHomePageState extends State<MyHomePage> {
             resultsReady = false;
           });
 
-    dynamic results = await queryService.postQuery(text,context);
-    // Future.delayed(const Duration(seconds: 1), () {
+    // dynamic results = await queryService.postQuery(text,context);
+    Future.delayed(const Duration(seconds: 3), () {
           setState(() {
             resultsReady = true;
-          // });
+          });
     });
   }
 }
