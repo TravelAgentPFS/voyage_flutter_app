@@ -21,7 +21,9 @@ class _ActivitiesTabBar extends State<ActivitiesTabBar>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    var size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: size.height - 250+ (size.width * 0.2),
       child: Column(
         children: [
           TabBar(
@@ -43,47 +45,56 @@ class _ActivitiesTabBar extends State<ActivitiesTabBar>
               controller: _tabController,
               children: [
                 _buildCardExperienceList(
-                  count: 3,
+                  count: 4,
                   attractionNames: [
                     "Bali Retreat",
                     "Mount Everest",
-                    "Paris Tour"
+                    "Paris Tour",
+                    "Bali Retreat",
                   ],
                   locationNames: [
                     "Ubud, Bali, Indonesia",
                     "Nepal",
-                    "Paris, France"
+                    "Paris, France",
+                    "Ubud, Bali, Indonesia",
                   ],
                   categories: [
                     ["Mountain", "Adventure"],
                     ["Adventure", "High Altitude"],
-                    ["Tourism", "Romantic"]
+                    ["Tourism", "Romantic"],
+                    ["Mountain", "Adventure"],
                   ],
                 ),
                 _buildCardHotelList(count: 3, imageUrls: [
                   "assets/images/best-hotel-bali.jpeg",
                   "assets/images/best-hotels-bali-melia-nusa-dua.jpeg",
                   "assets/images/best-hotels-bali-four-seasons-ubud.jpeg",
+                  "assets/images/best-hotel-bali.jpeg",
                 ], locations: [
                   "Ubud, Bali, Indonesia",
                   "Nepal",
-                  "Paris, France"
+                  "Paris, France",
+                  "Ubud, Bali, Indonesia",
                 ], names: [
                   "Bali Retreat",
                   "Mount Everest",
-                  "Paris Tour"
+                  "Paris Tour",
+                  "Bali Retreat",
                 ], numberReviews: [
                   125,
                   69,
-                  25
+                  25,
+                  125,
                 ], prices: [
                   200,
                   180,
-                  220
+                  220,
+                  200,
                 ], rates: [
                   4.8,
                   3.5,
-                  3.2
+                  3.2,
+                  4.8,
                 ]),
                 Text("hello"),
                 Text("hello"),
