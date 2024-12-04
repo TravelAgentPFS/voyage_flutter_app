@@ -13,9 +13,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0; // Keeps track of the selected tab index
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const MyHomePage(title: "Home"),
+    MyHomePage(),
     const Center(child: Text('Search Page')),
-    const Profile(),
+    Profile(),
     const Center(child: Text('Settings Page')), // Add a unique fourth page
   ];
 
