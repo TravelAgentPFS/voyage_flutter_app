@@ -14,7 +14,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     MyHomePage(),
-    const Center(child: Text('Search Page')),
+    const Center(child: Text('History Page')),
     Profile(),
     const Center(child: Text('Settings Page')), // Add a unique fourth page
   ];
@@ -57,8 +57,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.history),
+            label: 'History',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),

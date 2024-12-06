@@ -13,7 +13,8 @@ class ClipRoundedImage extends StatelessWidget {
     required this.imageUrl,
     required this.height,
     required this.width,
-    this.assetFallback = 'assets/images/default_fallback.png', // Default fallback asset
+    this.assetFallback =
+        'assets/images/default_fallback.png', // Default fallback asset
   });
 
   @override
@@ -71,6 +72,7 @@ class ClipRoundedImage extends StatelessWidget {
   bool _isBase64(String input) {
     // Check if the string is Base64 encoded
     final base64Pattern = RegExp(r'^[A-Za-z0-9+/]+={0,2}$');
-    return base64Pattern.hasMatch(input.replaceAll('\n', '').replaceAll(' ', ''));
+    return base64Pattern
+        .hasMatch(input.replaceAll('\n', '').replaceAll(' ', ''));
   }
 }
