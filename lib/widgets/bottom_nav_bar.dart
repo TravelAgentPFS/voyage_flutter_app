@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voyage_flutter_app/pages/Home.dart';
-import 'package:voyage_flutter_app/pages/Profile.dart'; // Import your pages
+import 'package:voyage_flutter_app/pages/profile.dart'; // Import your pages
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

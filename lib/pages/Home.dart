@@ -24,6 +24,9 @@ class _MyHomePageState extends State<MyHomePage> {
   bool hasEnteredQuery = false;
   String username="";
   bool isTextFieldEmpty = true;
+  dynamic activities;
+  dynamic hotels;
+  dynamic flights;
   
   @override
   void initState() {
@@ -255,8 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
               top: 80+(size.width * 0.2)+(!resultsReady?size.height:0),
               left: 0,
               right: 0,
-              child:
-                  const ActivitiesTabBar(),
+              child: activities!=null || hotels!=null || flights!=null?ActivitiesTabBar(activities:activities,hotels:hotels,flights:flights):const SizedBox.shrink(),
             )
             
           ],
@@ -265,15 +267,15 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 238, 144, 3),
         onPressed: () => {
-          hasEnteredQuery = !hasEnteredQuery,
           Future.delayed(const Duration(seconds: 5), () {
           setState(() {
+            hasEnteredQuery = !hasEnteredQuery;
             resultsReady = !resultsReady;
           });
           })
         },
-        tooltip: 'Increment',
-        child: const Icon(Icons.chat, color: Colors.white),
+        tooltip: 'History',
+        child: const Icon(Icons.history, color: Colors.white),
       ),
     );
   }
@@ -285,11 +287,16 @@ class _MyHomePageState extends State<MyHomePage> {
             resultsReady = false;
           });
 
-    // dynamic results = await queryService.postQuery(text,context);
-    Future.delayed(const Duration(seconds: 3), () {
-          setState(() {
-            resultsReady = true;
-          });
+    dynamic results = await queryService.postQuery(text,context);
+
+    // Future.delayed(const Duration(seconds: 3), () {
+    setState(() {
+      resultsReady = true;
+      flights = results["flights"];
+      hotels = results["hotels"];
+      activities = results["activities"];
     });
+    // log(activities.toString());
+    // });
   }
 }

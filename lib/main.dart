@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:voyage_flutter_app/pages/auth/login_page.dart';
 import 'package:voyage_flutter_app/pages/auth/register_page.dart';
 import 'package:voyage_flutter_app/pages/splash.dart';
-import 'package:voyage_flutter_app/widgets/BottomNavBar.dart';
+import 'package:voyage_flutter_app/widgets/bottom_nav_bar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

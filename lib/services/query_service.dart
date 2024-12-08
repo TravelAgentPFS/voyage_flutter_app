@@ -22,7 +22,7 @@ class QueryService {
       );
       log('Response status: ${response.statusCode}');
       if(response.statusCode==200){
-        log('Response body: ${response.body}');
+        // log('Response body: ${response.body}');
         return jsonDecode(response.body);
       } else {return {"flights":[],"hotels":[],"activities":[]};}
 
