@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voyage_flutter_app/pages/HistoryPage.dart';
 import 'package:voyage_flutter_app/pages/Home.dart';
 import 'package:voyage_flutter_app/pages/Profile.dart'; // Import your pages
 
@@ -14,7 +15,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     MyHomePage(),
-    const Center(child: Text('History Page')),
+    HistoryPage(),
     Profile(),
     const Center(child: Text('Settings Page')), // Add a unique fourth page
   ];
