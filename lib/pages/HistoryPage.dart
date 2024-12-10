@@ -85,7 +85,7 @@ class HistoryCard extends StatelessWidget {
                 Icons.search,
                 size: 18,
               ),
-              label: Text('Search'),
+              label: Text('Re-send'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Color.fromARGB(255, 239, 132, 24),
