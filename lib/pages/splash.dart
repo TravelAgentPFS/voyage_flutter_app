@@ -35,17 +35,16 @@ class _SplashScreenState extends State<Splash> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedSplashScreen(
-        splashIconSize: 350,
-        splash: Image.asset(
-          'assets/images/splash.png',
-          fit: BoxFit.contain, // or BoxFit.cover
-          // Path to your SVG file
-        ),
-        backgroundColor: Colors.white,
-        duration: 1000,
-        splashTransition: SplashTransition.fadeTransition,
-        nextScreen: const Login()
-      ),
+          splashIconSize: 350,
+          splash: Image.asset(
+            'assets/images/splash.png',
+            fit: BoxFit.contain, // or BoxFit.cover
+            // Path to your SVG file
+          ),
+          backgroundColor: Colors.white,
+          duration: 1000,
+          splashTransition: SplashTransition.fadeTransition,
+          nextScreen: const Login()),
     );
   }
 }
