@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+      backgroundColor: const Color.fromARGB(255, 254, 247, 255),
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,

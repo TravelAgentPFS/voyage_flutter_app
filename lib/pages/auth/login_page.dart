@@ -92,7 +92,21 @@ void loginUser() async {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(
+    return Scaffold(body: 
+      Stack(
+      children: [
+        // Background image
+        Positioned.fill(
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Image.asset(
+            'assets/images/auth_background.png', // Update with your image path
+            fit: BoxFit.cover, // Ensures the image covers the entire background
+          ),
+        ),
+      Center(
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -252,7 +266,7 @@ void loginUser() async {
             ),
           ),
         ),
-      ),);
+      )]),);
   }
 }
 

@@ -126,12 +126,11 @@ class _FlightDetails extends StatelessWidget {
   final String date;
 
   const _FlightDetails({
-    Key? key,
     required this.city,
     required this.airportCode,
     required this.time,
     required this.date,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
