@@ -8,8 +8,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 class QueryService {
-
-  Future<dynamic> postQuery(String query,BuildContext context) async {
+  Future<dynamic> postQuery(String query, BuildContext context) async {
     try {
       var regBody = {
         'query': query,
@@ -21,18 +20,45 @@ class QueryService {
         body: jsonEncode(regBody),
       );
       log('Response status: ${response.statusCode}');
-      if(response.statusCode==200){
+      if (response.statusCode == 200) {
         // log('Response body: ${response.body}');
         return jsonDecode(response.body);
-      } else {return {"flights":[],"hotels":[],"activities":[]};}
-
+      } else {
+        return {"flights": [], "hotels": [], "activities": []};
+      }
     } catch (e) {
-      if(context.mounted){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
       }
       log('Error: $e');
-       return {"flights":[],"hotels":[],"activities":[]};
+      return {"flights": [], "hotels": [], "activities": []};
     }
     // return null;
+  }
+
+  Future<dynamic> getQueries() async {
+    try {
+      var response = await http.get(
+        headers: {
+          'Authorization':
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsImlhdCI6MTczNDM4MTI1NywiZXhwIjoxNzM0MzgzMDU3fQ.5tc7EmcgsCvfO27Dqf7pXVFDDyDQK4RSfPJDtNYzFss"
+        },
+        Uri.parse(queryUrl),
+      );
+
+      if (response.statusCode == 200) {
+        var jsonResponse = json.decode(response.body);
+        if (jsonResponse is List) {
+          return jsonResponse;
+        } else {
+          throw Exception('Unexpected response format');
+        }
+      } else {
+        throw Exception('Failed to load queries: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching queries: $e');
+    }
   }
 }

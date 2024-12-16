@@ -1,8 +1,24 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:voyage_flutter_app/services/query_service.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
+
+  @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  late Future<dynamic> _queriesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    var queryService = QueryService();
+    _queriesFuture = queryService.getQueries();
+    print("chof" + queryService.getQueries().toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,21 +28,34 @@ class HistoryPage extends StatelessWidget {
         title: const Text('History'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: const [
-            HistoryCard(
-              title: 'Query 1',
-              date: '2023/10/01',
-            ),
-            HistoryCard(
-              title: 'Query  2',
-              date: '2023/10/02',
-            ),
-            // Add more HistoryCard widgets here
-          ],
-        ),
-      ),
+          padding: const EdgeInsets.all(8.0),
+          child: FutureBuilder<dynamic>(
+            future: _queriesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                print("Error: ${snapshot.error}");
+
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData ||
+                  (snapshot.data is List && snapshot.data.isEmpty)) {
+                return const Center(child: Text('No history found.'));
+              } else {
+                var queries = snapshot.data as List<dynamic>;
+                return ListView.builder(
+                  itemCount: queries.length,
+                  itemBuilder: (context, index) {
+                    var query = queries[index];
+                    return HistoryCard(
+                      title: query['queryText'] ?? 'Untitled',
+                      date: query['createdAt'] ?? 'Unknown date',
+                    );
+                  },
+                );
+              }
+            },
+          )),
     );
   }
 }
@@ -35,72 +64,17 @@ class HistoryCard extends StatelessWidget {
   final String title;
   final String date;
 
-  const HistoryCard({super.key, required this.title, required this.date});
+  const HistoryCard({
+    required this.title,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      elevation: 6,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 7),
-                    decoration: BoxDecoration(
-                        color: const Color.fromRGBO(231, 231, 242, 1),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Text(
-                      date,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(38, 34, 65, 1),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            ElevatedButton.icon(
-              onPressed: () {
-                // Add functionality here
-              },
-              icon: const Icon(
-                Icons.search,
-                size: 18,
-              ),
-              label: const Text('Re-send'),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: const Color.fromARGB(255, 239, 132, 24),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                textStyle: const TextStyle(fontSize: 16),
-              ),
-            ),
-          ],
-        ),
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(date),
       ),
     );
   }
