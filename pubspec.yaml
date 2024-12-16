@@ -37,7 +37,7 @@ dependencies:
   http:
   flutter_secure_storage: ^9.2.1
   shared_preferences: ^2.0.10
-  intl:
+  intl: ^0.19.0
   badges: ^3.1.2
   #webview_flutter: ^4.8.0
   flutter_local_notifications: ^18.0.1

@@ -41,12 +41,13 @@ class QueryService {
     try {
       var response = await http.get(
         headers: {
-          'Authorization':
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsImlhdCI6MTczNDM4MTI1NywiZXhwIjoxNzM0MzgzMDU3fQ.5tc7EmcgsCvfO27Dqf7pXVFDDyDQK4RSfPJDtNYzFss"
+          "Authorization":
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsImlhdCI6MTczNDM4NTgyMSwiZXhwIjoxNzM0Mzg3NjIxfQ.ANMda9hiUO_JseR_oQERJSZvMXz2SqQEHI7gAFq8QRM"
         },
         Uri.parse(queryUrl),
       );
 
+      print("response.statusCode : ");
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
         if (jsonResponse is List) {
